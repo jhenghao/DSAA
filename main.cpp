@@ -1,4 +1,5 @@
 #include "BinaryHeap.h"
+#include "Utilities.h"
 
 #include <iostream>
 
@@ -18,6 +19,9 @@ int main ()
     {
         std::cout << binaryHeap.ExtractMax() << std::endl;
     }
+
+    std::cout << "############" << std::endl;
+    std::cout << Utilities::IsFloatingNumberIntegral(15.0) << std::endl;
 
     return 0;
 }
