@@ -13,15 +13,15 @@ class Utilities
 public:
     // get greatest common divisor of arguments a and b
     template <typename T>
-    static T GCD (T a, T b);
+    static inline constexpr T GCD (T a, T b);
 
     // check if a floating number is integral
     template <typename T>
-    static bool IsFloatingNumberIntegral (T value);
+    static inline bool IsFloatingNumberIntegral (T value);
 };
 
 template <typename T>
-T Utilities::GCD (T a, T b)
+constexpr T Utilities::GCD (T a, T b)
 {
     static_assert(std::is_integral<T>::value, "Integral required");
     return (0 == b) ? a : GCD(b, a % b);
