@@ -1,4 +1,5 @@
 #include "BinaryHeap.h"
+#include "LongestCommonSubsequence.h"
 #include "Utilities.h"
 
 #include <iostream>
@@ -22,6 +23,19 @@ int main ()
 
     std::cout << "############" << std::endl;
     std::cout << Utilities::IsFloatingNumberIntegral(15.0) << std::endl;
+
+    std::cout << "LCS" << std::endl;
+    std::string a = "ABCBDAB";
+    std::string b = "BDCABA";
+    //std::string a = "ABC";
+    //std::string b = "CBA";
+    std::cout << LongestCommonSubsequence::GetLength(a, b) << std::endl;
+    auto ret = LongestCommonSubsequence::GetAllSubsequences(a, b);
+
+    for (auto& str : ret)
+    {
+        std::cout << str << std::endl;
+    }
 
     return 0;
 }
