@@ -1,5 +1,6 @@
 #include "BinaryHeap.h"
 #include "LongestCommonSubsequence.h"
+#include "LongestIncreasingSubsequence.h"
 #include "Utilities.h"
 
 #include <iostream>
@@ -8,6 +9,7 @@ int main ()
 {
     using namespace DSAA;
 
+    /*
     BinaryHeap binaryHeap({7, 3, 3, 5, 8, 1});
     //binaryHeap.Sort();
     //binaryHeap.Print();
@@ -36,6 +38,9 @@ int main ()
     {
         std::cout << str << std::endl;
     }
+*/
+
+    LongestIncreasingSubsequence::RunTestCases();
 
     return 0;
 }
