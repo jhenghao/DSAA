@@ -1,16 +1,36 @@
 #ifndef DSAA_UTILITIES_H
 #define DSAA_UTILITIES_H
 
-#include <cmath>
 #include <chrono>
+#include <cmath>
 #include <random>
 #include <type_traits>
+
+#include "UtilitiesImpl.h"
 
 namespace DSAA
 {
 
 namespace Utilities
 {
+
+// check whether an element exists in a container
+//------------------------------------------------------------------------------
+template <typename ElementT, typename ContainerT>
+inline constexpr bool Exists (const ContainerT& container,
+    const ElementT& element)
+{
+    return ExistsImpl<ContainerT, ElementT>::Exec(container, element);
+}
+
+// add an element if it does not exist in a container
+//------------------------------------------------------------------------------
+template <typename ElementT, typename ContainerT>
+inline constexpr void AddIfNotExists (ContainerT& container, const ElementT& element)
+{
+    if (!ExistsImpl<ContainerT, ElementT>::Exec(container, element))
+        container.push_back(element);
+}
 
 // get greatest common divisor of arguments a and b
 //------------------------------------------------------------------------------

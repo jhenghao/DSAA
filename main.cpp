@@ -1,4 +1,5 @@
 #include "BinaryHeap.h"
+#include "LongestCommonString.h"
 #include "LongestCommonSubsequence.h"
 #include "LongestIncreasingSubsequence.h"
 #include "Utilities.h"
@@ -40,7 +41,9 @@ int main ()
     }
 */
 
-    LongestIncreasingSubsequence::RunTestCases();
+    //LongestIncreasingSubsequence::RunTestCases();
+
+    LongestCommonString::RunTestCases();
 
     return 0;
 }
