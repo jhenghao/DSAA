@@ -1,10 +1,18 @@
 #ifndef DSAA_UTILITIES_H
 #define DSAA_UTILITIES_H
 
+#include <cassert>
 #include <chrono>
 #include <cmath>
+#include <forward_list>
+#include <list>
+#include <map>
 #include <random>
+#include <set>
 #include <type_traits>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
 
 #include "UtilitiesImpl.h"
 
@@ -14,13 +22,38 @@ namespace DSAA
 namespace Utilities
 {
 
-// check whether an element exists in a container
+// check whether an element exists in a container (linear time)
 //------------------------------------------------------------------------------
-template <typename ElementT, typename ContainerT>
-inline constexpr bool Exists (const ContainerT& container,
-    const ElementT& element)
+template<
+    template <typename...> class ContainerT,
+    typename ElementT,
+    typename... Args,
+    typename std::enable_if<
+        std::is_same<ContainerT<Args...>, std::vector<Args...>>::value |
+        std::is_same<ContainerT<Args...>, std::list<Args...>>::value |
+        std::is_same<ContainerT<Args...>, std::forward_list<Args...>>::value
+    >::type* = nullptr>
+bool Exists (const ContainerT<Args...>& container, const ElementT& element)
 {
-    return ExistsImpl<ContainerT, ElementT>::Exec(container, element);
+    return (container.cend() != 
+        std::find(container.cbegin(), container.cend(), element));
+}
+
+// check whether an element exists in a container (log or const time)
+//------------------------------------------------------------------------------
+template<
+    template <typename...> class ContainerT,
+    typename ElementT,
+    typename... Args,
+    typename std::enable_if<
+        std::is_same<ContainerT<Args...>, std::map<Args...>>::value |
+        std::is_same<ContainerT<Args...>, std::unordered_map<Args...>>::value |
+        std::is_same<ContainerT<Args...>, std::set<Args...>>::value |
+        std::is_same<ContainerT<Args...>, std::unordered_set<Args...>>::value
+    >::type* = nullptr>
+bool Exists (const ContainerT<Args...>& container, const ElementT& element)
+{
+    return container.cend() != container.find(element);
 }
 
 // add an element if it does not exist in a container
@@ -28,7 +61,7 @@ inline constexpr bool Exists (const ContainerT& container,
 template <typename ElementT, typename ContainerT>
 inline constexpr void AddIfNotExists (ContainerT& container, const ElementT& element)
 {
-    if (!ExistsImpl<ContainerT, ElementT>::Exec(container, element))
+    if (!Exists(container, element))
         container.push_back(element);
 }
 
